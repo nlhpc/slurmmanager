@@ -1,15 +1,16 @@
-from django.db import models
+"""
+from django.db import forms
 
-class Partition(models.Model):
+class Partition(forms.Form):
 	name = models.CharField("Partition name", max_length=30)
 	description = models.CharField("Partition description", max_length=200)
 	parent = models.ForeignKey('self')
 	
-class Cluster(models.Model):
+class Cluster(forms.Form):
 	name = models.CharField("Cluster name", max_length=30)
 	description = models.CharField("Cluster description", max_length=200)
 
-class Limits(models.Model):
+class Limits(forms.Form):
 	name = models.CharField("Limit name", max_length=30)
 	fairshare = models.IntegerField("Fairshare value")
 	grpcpumins = models.PositiveIntegerField("Maximum CPU minutes limits")
@@ -28,7 +29,7 @@ class Limits(models.Model):
 	maxwalldurationperjob = models.PositiveIntegerField("Maximum wall duration per job")
 	qos = models.CharField("QOS's able to run", max_length=200)
 	
-class Account(models.Model):
+class Account(forms.Form):
 	name = models.CharField("Account name", max_length=30)
 	description = models.CharField("Account description", max_length=200)
 	organization = models.CharField("Organization", max_length=30)
@@ -36,7 +37,7 @@ class Account(models.Model):
 	cluster = models.ForeignKey('Cluster')
 	limits = models.Foreignkey('limits')
 
-class QOS(models.Model):
+class QOS(forms.Form):
 	name = models.CharField("QoS name", max_length=30)
 	description = models.CharField("QoS description", max_length=200)
 	grpcpus = models.SmallintegerField("Total CPU count able to use for job")
@@ -54,3 +55,4 @@ class QOS(models.Model):
 	maxjobsperuser = models.PositiveIntegerField("Maximum number of jobs per user")
 	maxnodesperuser = models.PositiveIntegerField("Maximum number of nodes per user")
 	maxsubmitjobsperuser = models.PositiveIntegerField("Maximum jobs submited per user")
+"""
