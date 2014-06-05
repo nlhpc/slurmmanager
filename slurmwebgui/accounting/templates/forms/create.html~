@@ -72,7 +72,7 @@
 				<br /> -->
 				{% buttons %}
 					<button type="submit" class="btn btn-success">
-						Add 
+						Add {{ id }}
 					</button>
 				{% endbuttons %}
 			</form>
