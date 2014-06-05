@@ -16,27 +16,27 @@ file"""
 def create_cluster(request):
 	template = loader.get_template ('forms/create.html')
 	form = Cluster()
-	id = "Cluster"
+	id = "cluster"
 	context = RequestContext(request, {'form': form, 'id' : id})
 	return HttpResponse(template.render(context))
 
 def create_partition(request):
 	template = loader.get_template ('forms/create.html')
 	form = Partition()
-	id = "Partition"
+	id = "partition"
 	context = RequestContext(request, {'form': form, 'id' : id})
 	return HttpResponse(template.render(context))
 
 def create_limit(request):
 	template = loader.get_template ('forms/create.html')
 	form = Limits()
-	id = "Limit"
+	id = "limit"
 	context = RequestContext(request, {'form': form, 'id' : id})
 	return HttpResponse(template.render(context))
 
 def create_account(request):
 	template = loader.get_template ('forms/create.html')
 	form = Account()
-	id = "Account"
+	id = "account"
 	context = RequestContext(request, {'form': form, 'id' : id})
 	return HttpResponse(template.render(context))
