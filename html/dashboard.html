@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>SLURM Web GUI - NLHPC</title>
+		<meta name="generator" content="Bootply" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="css/styles.css" rel="stylesheet">
+	</head>
+	<body>
+<nav class="navbar navbar-fixed-top header">
+ 	<div class="col-md-12">
+        <div class="navbar-header">
+			
+			 <a href="#" class="navbar-brand red">NLHPC - SLURM</a>
+          
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse2">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          </button>
+      
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse2">
+          <ul class="nav navbar-nav navbar-right">
+             <li class="">
+				<a href="#" style="margin-left:15px;" class="navbar-btn btn btn-default dropdown-toggle without-border mr10" data-toggle="dropdown">
+					<i class="glyphicon glyphicon-user" style="color:#dd1111;"></i> Mi cuenta <small>
+					<i class="glyphicon glyphicon-chevron-down"></i></small>
+				</a>
+				<ul class="nav dropdown-menu">
+					<li><a href="#"><i class="glyphicon glyphicon-dashboard" style="color:#0000aa;"></i> Dashboard</a></li>
+					<li class="nav-divider"></li>
+					<li><a href="#"><i class="glyphicon glyphicon-cog" style="color:#dd1111;"></i> Settings</a></li>
+				</ul>
+             </li>
+           </ul>
+        </div>	
+     </div>	
+</nav>
+
+<!--main-->
+<div class="container" id="main">
+   <div class="row">
+   <div class="col-md-4 col-sm-6">
+	   
+	   <div class="panel panel-default">
+			<div class="panel-heading"><h4><i class="glyphicon glyphicon-user"></i> Usuarios</h4></div>
+			<div class="panel-body">
+				<ul class="list-group">
+					<li class="list-group-item">Total <span class="pull-right">168</span></li>
+					<li class="list-group-item">Activos <span class="pull-right">113</span></li>
+					<li class="list-group-item">Vencidos <span class="pull-right">45</span></li>
+				</ul>
+				<a class="btn btn-success white">Agregar</a>
+				<a class="btn btn-primary white">Modificar</a>
+				<a class="btn btn-danger white">Eliminar</a>
+			</div>
+		</div>
+	   
+        <div class="panel panel-default box">
+			<div class="panel-heading"><h4><i class="glyphicon glyphicon-eye-open"></i> Control de Tareas</h4></div>
+			<div class="panel-body">
+				<ul class="list-group">
+					<li class="list-group-item">Total <span class="pull-right">87</span></li>
+					<li class="list-group-item">Error <span class="pull-right">4</span></li>
+				</ul>
+				<br /><br />
+				<a class="btn btn-primary white">Acci&oacute;n</a>
+			</div>
+		</div>
+		
+	</div>
+  	<div class="col-md-4 col-sm-6">
+      	 
+      	 <div class="panel panel-default box">
+			<div class="panel-heading"><h4><i class="glyphicon glyphicon-th"></i> Particiones</h4></div>
+			<div class="panel-body">
+				<ul class="list-group">
+					<li class="list-group-item">Total <span class="pull-right">8</span></li>
+					<li class="list-group-item">Activos <span class="pull-right">5</span></li>
+				</ul>
+				<br /><br />
+				<a class="btn btn-success white">Agregar</a>
+				<a class="btn btn-primary white">Modificar</a>
+				<a class="btn btn-danger white">Eliminar</a>
+			</div>
+		</div>
+
+		<div class="panel panel-default box">
+			<div class="panel-heading"><h4><i class="glyphicon glyphicon-stats"></i> Estad&iacute;sticas</h4></div>
+			<div class="panel-body">
+				<img src="img/graph.png" />
+			</div>
+		</div>
+      
+  	</div>
+  	<div class="col-md-4 col-sm-6">
+		
+		<div class="panel panel-default box">
+			<div class="panel-heading"><h4><i class="glyphicon glyphicon-user"></i><i class="glyphicon glyphicon-user"></i> Grupos</h4></div>
+			<div class="panel-body">
+				<ul class="list-group">
+					<li class="list-group-item">Total <span class="pull-right">26</span></li>
+				</ul>
+				<br /><br /><br /><br />
+				<a class="btn btn-success white">Agregar</a>
+				<a class="btn btn-primary white">Modificar</a>
+				<a class="btn btn-danger white">Eliminar</a>
+			</div>
+		</div>
+		
+		<div class="panel panel-default box">
+			<div class="panel-heading"><h4><i class="glyphicon glyphicon-wrench"></i> Configuraciones SLURM</h4></div>
+			<div class="panel-body">
+				
+			</div>
+		</div>
+
+    </div>
+</div><!--/row-->  
+<div class="clearfix"></div>
+<hr />
+<div class="col-md-12 text-center">
+	<p><a href="http://www.nlhpc.cl" target="_ext">National Laboratory for High Performance Computing</a><br />
+	<a href="http://cmm.uchile.cl" target="_ext">Center for Mathematical Modeling</a></p>
+</div>
+<hr />
+</div>
+</div><!--/main-->
+
+<!--login modal-->
+<div id="loginModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h2 class="text-center"><img src="" class="img-circle"><br>Login</h2>
+      </div>
+      <div class="modal-body">
+          <form class="form col-md-12 center-block">
+            <div class="form-group">
+              <input type="text" class="form-control input-lg" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control input-lg" placeholder="Password">
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary btn-lg btn-block">Sign In</button>
+              <span class="pull-right"><a href="#">Register</a></span><span><a href="#">Need help?</a></span>
+            </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+          <div class="col-md-12">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+		  </div>	
+      </div>
+  </div>
+  </div>
+</div>
+
+
+<!--about modal-->
+<div id="aboutModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h2 class="text-center">About</h2>
+      </div>
+      <div class="modal-body">
+          <div class="col-md-12 text-center">
+            <a href="http://www.bootply.com/DwnjTNuvVt">This Bootstrap Template</a><br>was made with <i class="glyphicon glyphicon-heart"></i> by <a href="http://bootply.com/templates">Bootply</a>
+            <br><br>
+            <a href="https://github.com/iatek/bootstrap-google-plus">GitHub Fork</a>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">OK</button>
+      </div>
+  </div>
+  </div>
+</div>
+	<!-- script references -->
+		<script src="js/jquery.v2.0.3.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/scripts.js"></script>
+	</body>
+</html>
