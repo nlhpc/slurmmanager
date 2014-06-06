@@ -10,7 +10,7 @@ def index(request):
 	if request.method == 'POST':
 		form = QOS(request.POST)
 		if form.is_valid():
-			return HttpResponseRedirect('Wena')
+			return HttpResponse('Wena')
 	else:
 		form = QOS()
 		
@@ -19,12 +19,14 @@ def index(request):
 	context = RequestContext(request, {'form': form, 'id' : id})
 	return HttpResponse(template.render(context))
 
-
+	
 def create_cluster(request):
 	if request.method == 'POST':
 		form = Cluster(request.POST)
 		if form.is_valid():
-			return HttpResponseRedirect('Wena')
+			name = form.cleaned_data['name']
+			command = "sacctmgr add cluster " + name 
+			return HttpResponse(command)
 	else:
 		form = Cluster()
 		
@@ -34,6 +36,7 @@ def create_cluster(request):
 	context = RequestContext(request, {'form': form, 'id' : id})
 	return HttpResponse(template.render(context))
 
+	
 def create_partition(request):
 	if request.method == 'POST':
 		form = Partition(request.POST)
@@ -48,6 +51,7 @@ def create_partition(request):
 	context = RequestContext(request, {'form': form, 'id' : id})
 	return HttpResponse(template.render(context))
 
+	
 def create_limit(request):
 	if request.method == 'POST':
 		form = Limits(request.POST)
@@ -62,6 +66,7 @@ def create_limit(request):
 	context = RequestContext(request, {'form': form, 'id' : id})
 	return HttpResponse(template.render(context))
 
+	
 def create_account(request):
 	if request.method == 'POST':
 		form = Account(request.POST)

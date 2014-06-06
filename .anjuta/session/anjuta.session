@@ -1,15 +1,15 @@
 [Anjuta]
 Maximized=1
-Geometry=1920x1014+1366+27
+Geometry=1366x702+0+27
 
 [File Loader]
-Files=../../slurmwebgui/accounting/models.py#6
+Files=../../slurmwebgui/accounting/models.py#22%%%../../slurmwebgui/accounting/views.py#30%%%../../slurmwebgui/accounting/forms.py#30%%%../../slurmwebgui/accounting/urls.py#10%%%../../slurmwebgui/slurmwebgui/urls.py#10
 
 [Document Manager]
 bookmarks=<?xml version="1.0" encoding="UTF-8"?>\n<bookmarks/>\n
 
 [Project Manager]
-Expand=Slurm Manager
+Expand=Slurm Manager%%%Slurm Manager//slurmwebgui%%%Slurm Manager//slurmwebgui//accounting%%%Slurm Manager//slurmwebgui//accounting//templates%%%Slurm Manager//slurmwebgui//slurmwebgui
 
 [Execution]
 Run in terminal=2
