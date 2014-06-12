@@ -2,11 +2,17 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from accounting.forms import *
-
+import os
+import paramiko
 
 #Generic forms for qos, cluster, partition, limit and account creation
 
 def index(request):
+	template = loader.get_template('base.html')
+	context = RequestContext(request, {})
+	return HttpResponse(template.render(context))
+
+def create_qos(request):
 	if request.method == 'POST':
 		form = QOS(request.POST)
 		if form.is_valid():
@@ -14,7 +20,7 @@ def index(request):
 	else:
 		form = QOS()
 		
-	template = loader.get_template('forms/create.html')
+	template = loader.get_template('forms.html')
 	id = "QoS"
 	context = RequestContext(request, {'form': form, 'id' : id})
 	return HttpResponse(template.render(context))
@@ -45,10 +51,10 @@ def create_partition(request):
 	else:
 		form = Partition()
 		
-	template = loader.get_template ('forms/create.html')
+	template = loader.get_template ('forms.html')
 	form = Partition()
 	id = "Partition"
-	context = RequestContext(request, {'form': form, 'id' : id})
+	context = RequestContext(request, {'form': form, 'id' : id, small: 1})
 	return HttpResponse(template.render(context))
 
 	
@@ -75,8 +81,23 @@ def create_account(request):
 	else:
 		form = Account()
 		
-	template = loader.get_template ('forms/create.html')
+	template = loader.get_template ('forms.html')
 	form = Account()
 	id = "Account"
-	context = RequestContext(request, {'form': form, 'id' : id})
+	context = RequestContext(request, {'form': form, 'id' : id, small: 1})
 	return HttpResponse(template.render(context))
+
+def commands(request):
+	#os.system("./testing.sh");
+	try:
+		ssh = paramiko.SSHClient()
+		ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+		ssh.load_system_host_keys()
+		ssh.connect('localhost', username='testing', password='123456')
+	except paramiko.AuthenticationException:
+		return HttpResponse("wrong password")
+	
+	stdin, stdout, stderr = ssh.exec_command('cd /var/tmp/;sudo ./sacctmgr.sh')
+	output = stderr.read() + stdout.read()
+	ssh.close()
+	return HttpResponse(output)

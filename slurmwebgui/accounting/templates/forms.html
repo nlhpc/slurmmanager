@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}NLHPC{% endblock %}
+	{% block content %}
+	{% if small %}
+	<div class="col-md-6 col-sm-6">
+	{% else %}
+	<div class="col-md-12 col-sm-12">
+	{% endif %}
+	   <div class="panel panel-default">
+			<div class="panel-heading"><h4><i class="glyphicon glyphicon-user"></i> Agregar {{ id }}</h4></div>
+			<div class="panel-body">
+				<form action="/accounting/{{ id }}" method="post" class="form">
+					{% csrf_token %}
+					{% for field in form %}
+					<div class="form-group">
+						<label class="control-label" for="id_name">{{ field.label }}</label>
+						{% if field.help_text %}
+						<div class="input-group">
+							{{ field }}
+							<span class="input-group-addon help" data-content="{{ field.help_text }}" rel="popover"><span class="glyphicon glyphicon-question-sign"></span></span>
+						</div>
+						{% else %}
+							{{ field }}
+						{% endif %}
+					</div>
+					{% endfor %}
+					
+						<!--<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label" for="id_organization">Grupo</label>
+								<div class="input-group">
+									<select id="country-profile" name="country-profile" class="multiselect">
+										<option value="0">Ninguna</option>
+										<option value="">Computación</option>
+										<option value="">Biología</option>
+										<option value="">Física</option>
+										<option value="">Matemática</option>
+									</select>
+								</div>
+							</div>
+						</div>-->
+					
+					<hr />
+					<input type="submit" class="btn btn-large btn-success pull-right" value=" Agregar {{ id }} " />
+				</form>
+
+			</div><!-- /panel-body -->
+		</div>
+	</div><!-- /col-md -->
+	{% if small %}
+	<div class="col-md-6 col-sm-6">
+		 <div class="panel panel-default">
+			<div class="panel-heading"><h4><i class="glyphicon glyphicon-question-sign"></i> Informaci&oacute;n de ayuda</h4></div>
+			<div class="panel-body">
+				<p>
+					When either adding or modifying an account, the following sacctmgr options are available:
+					<ul>
+						<li>Cluster= Only add this account to these clusters. The account is added to all defined clusters by default.</li>
+						<li>Description= Description of the account. (Default is account name)</li>
+						<li>Name= Name of account. Note the name must be unique and can not represent different bank accounts at different points in the account hierarchy.</li>
+						<li>Organization=Organization of the account. (Default is parent account unless parent account is root then organization is set to the account name.)
+						<li>Parent= Make this account a child of this other account (already added).</li>
+					</ul>
+				</p>
+			</div><!-- /panel-body -->
+		</div>
+	</div><!-- /col-md-6 -->
+	{% endif %}
+	{% endblock %}

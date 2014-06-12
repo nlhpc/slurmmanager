@@ -1,8 +1,8 @@
 from django import forms
 
 class Partition(forms.Form):
-	name = forms.CharField(label="Partition name", max_length=30)
-	description = forms.CharField(label="Partition description", max_length=200)
+	name = forms.CharField(label="Partition name", max_length=30, widget=forms.TextInput(attrs={'class':'form-control'}))
+	description = forms.CharField(label="Partition description", max_length=200, widget=forms.TextInput(attrs={'class':'form-control'}))
 	
 class Cluster(forms.Form):
 	name = forms.CharField(label="Cluster name", max_length=30)
@@ -28,25 +28,25 @@ class Limits(forms.Form):
 	qos = forms.CharField(label="QOS's able to run", max_length=200)
 	
 class Account(forms.Form):
-	name = forms.CharField(label="Account name", max_length=30)
-	description = forms.CharField(label="Account description", max_length=200)
-	organization = forms.CharField(label="Organization", max_length=30)
+	name = forms.CharField(label="Account name", max_length=30, widget=forms.TextInput(attrs={'class':'form-control'}))
+	description = forms.CharField(label="Account description", max_length=200, widget=forms.TextInput(attrs={'class':'form-control'}))
+	organization = forms.CharField(label="Organization", max_length=30, widget=forms.TextInput(attrs={'class':'form-control'}))
 
 class QOS(forms.Form):
-	name = forms.CharField(label="QoS name", max_length=30)
-	description = forms.CharField(label="QoS description", max_length=200)
-	grpcpus = forms.IntegerField(label="Total CPU count able to use for job")
-	grpcpumins = forms.IntegerField(label="Maximum CPU minutes per job")
-	grpcpurunmins = forms.IntegerField(label="Total minutes CPU running")
-	grpjobs = forms.IntegerField(label="Maximum number of jobs running")
-	grpmemory = forms.IntegerField(label="Maximum group memory usage")
-	grpnodes = forms.IntegerField(label="Maximum total nodes running jobs")
-	grpsubmitjobs = forms.IntegerField(label="Maximum total submited jobs")
-	grpwall = forms.IntegerField(label="Total minutes CPU running")
-	maxcpusperjob = forms.IntegerField(label="Maximum CPU's per job")
-	maxnodesperjob = forms.IntegerField(label="Maximum total nodes per job")
-	maxwalldurationperjob = forms.IntegerField(label="Maximum time for running job")
-	maxcpusperuser = forms.IntegerField(label="Maximum number of running jobs for user")
-	maxjobsperuser = forms.IntegerField(label="Maximum number of jobs per user")
-	maxnodesperuser = forms.IntegerField(label="Maximum number of nodes per user")
-	maxsubmitjobsperuser = forms.IntegerField(label="Maximum jobs submited per user")
+	name = forms.CharField(label="QoS name", max_length=30, widget=forms.TextInput(attrs={'class':'form-control'}))
+	description = forms.CharField(label="QoS description", max_length=200,widget=forms.TextInput(attrs={'class':'form-control'}))
+	grpcpus = forms.IntegerField(label="Total CPU count able to use for job", help_text="Ayuda nombre",widget=forms.TextInput(attrs={'class':'form-control'}))
+	grpcpumins = forms.IntegerField(label="Maximum CPU minutes per job", help_text="The total number of cpu minutes that can possibly be used by past, present and future jobs running from this association",widget=forms.TextInput(attrs={'class':'form-control'}))
+	grpcpurunmins = forms.IntegerField(label="Total minutes CPU running",widget=forms.TextInput(attrs={'class':'form-control'}))
+	grpjobs = forms.IntegerField(label="Maximum number of jobs running",widget=forms.TextInput(attrs={'class':'form-control'}))
+	grpmemory = forms.IntegerField(label="Maximum group memory usage",widget=forms.TextInput(attrs={'class':'form-control'}))
+	grpnodes = forms.IntegerField(label="Maximum total nodes running jobs",widget=forms.TextInput(attrs={'class':'form-control'}))
+	grpsubmitjobs = forms.IntegerField(label="Maximum total submited jobs",widget=forms.TextInput(attrs={'class':'form-control'}))
+	grpwall = forms.IntegerField(label="Total minutes CPU running",widget=forms.TextInput(attrs={'class':'form-control'}))
+	maxcpusperjob = forms.IntegerField(label="Maximum CPU's per job",widget=forms.TextInput(attrs={'class':'form-control'}))
+	maxnodesperjob = forms.IntegerField(label="Maximum total nodes per job",widget=forms.TextInput(attrs={'class':'form-control'}))
+	maxwalldurationperjob = forms.IntegerField(label="Maximum time for running job",widget=forms.TextInput(attrs={'class':'form-control'}))
+	maxcpusperuser = forms.IntegerField(label="Maximum number of running jobs for user",widget=forms.TextInput(attrs={'class':'form-control'}))
+	maxjobsperuser = forms.IntegerField(label="Maximum number of jobs per user",widget=forms.TextInput(attrs={'class':'form-control'}))
+	maxnodesperuser = forms.IntegerField(label="Maximum number of nodes per user",widget=forms.TextInput(attrs={'class':'form-control'}))
+	maxsubmitjobsperuser = forms.IntegerField(label="Maximum jobs submited per user",widget=forms.TextInput(attrs={'class':'form-control'}))
