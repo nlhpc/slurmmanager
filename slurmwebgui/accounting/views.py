@@ -121,7 +121,27 @@ def create_account(request):
 	template = loader.get_template ('forms.html')
 	form = Account()
 	id = "Account"
-	context = RequestContext(request, {'form': form, 'id' : id, 'small': 1})
+	
+	# Para que esta parte funcione es necesario correr la VM Master configurada con NAT y redireccion de puertos 3022 -> 22
+	# De esta manera podemos hacer ssh -p 3022 clv@localhost y ejecutar sacctmgr
+	try:
+		ssh = paramiko.SSHClient()
+		ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+		ssh.load_system_host_keys()
+		ssh.connect('localhost', port=3022, username='clv', password='123456')
+	except paramiko.AuthenticationException:
+		return HttpResponse("wrong password")
+	
+	stdin, stdout, stderr = ssh.exec_command('sacctmgr -n -p show clusters')
+	clusters_list = stdout.read()
+	stdin, stdout, stderr = ssh.exec_command('sacctmgr -n -p show accounts')
+	accounts_list = stdout.read()
+	
+	ssh.close()
+	
+	info = "\n" + clusters_list + "\n\n" + accounts_list
+	
+	context = RequestContext(request, {'form': form, 'id' : id, 'small': 1, 'info': info})
 	return HttpResponse(template.render(context))
 
 def commands(request):

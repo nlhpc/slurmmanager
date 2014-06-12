@@ -14,6 +14,7 @@
 					{% for field in form %}
 					<div class="form-group">
 						<label class="control-label" for="id_name">{{ field.label }}</label>
+						{{ field.errors }}
 						{% if field.help_text %}
 						<div class="input-group">
 							{{ field }}
@@ -52,16 +53,9 @@
 		 <div class="panel panel-default">
 			<div class="panel-heading"><h4><i class="glyphicon glyphicon-question-sign"></i> Informaci&oacute;n de ayuda</h4></div>
 			<div class="panel-body">
-				<p>
-					When either adding or modifying an account, the following sacctmgr options are available:
-					<ul>
-						<li>Cluster= Only add this account to these clusters. The account is added to all defined clusters by default.</li>
-						<li>Description= Description of the account. (Default is account name)</li>
-						<li>Name= Name of account. Note the name must be unique and can not represent different bank accounts at different points in the account hierarchy.</li>
-						<li>Organization=Organization of the account. (Default is parent account unless parent account is root then organization is set to the account name.)
-						<li>Parent= Make this account a child of this other account (already added).</li>
-					</ul>
-				</p>
+				<pre>
+					{% if info %} {{ info }} {% endif %}
+				</pre>
 			</div><!-- /panel-body -->
 		</div>
 	</div><!-- /col-md-6 -->
