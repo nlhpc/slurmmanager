@@ -31,6 +31,9 @@ class Account(forms.Form):
 	name = forms.CharField(label="Account name", max_length=30)
 	description = forms.CharField(label="Account description", max_length=200)
 	organization = forms.CharField(label="Organization", max_length=30)
+	cluster = forms.CharField(label="Cluster name", max_length=30)
+	parent = forms.CharField(label="Parent", max_length=30)
+	
 
 class QOS(forms.Form):
 	name = forms.CharField(label="QoS name", max_length=30)

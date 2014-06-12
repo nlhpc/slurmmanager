@@ -41,6 +41,7 @@ def create_partition(request):
 	if request.method == 'POST':
 		form = Partition(request.POST)
 		if form.is_valid():
+			
 			return HttpResponse('Wena')
 	else:
 		form = Partition()
@@ -71,7 +72,19 @@ def create_account(request):
 	if request.method == 'POST':
 		form = Account(request.POST)
 		if form.is_valid():
-			return HttpResponse('Wena')
+			name = form.cleaned_data['name']
+			description = form.cleaned_data['description']
+			organization = form.cleaned_data['organization']
+			cluster = form.cleaned_data['cluster']
+			parent = form.cleaned_data['parent']
+			command = "sacctmgr add ccount " + name + " Cluster=" + cluster
+			command += " Description=" + description + " Organization=" + organization
+			if not parent:
+				return HttpResponse(command)
+			else:
+				command += " Parent=" + parent
+				return HttpResponse(command)
+			
 	else:
 		form = Account()
 		
