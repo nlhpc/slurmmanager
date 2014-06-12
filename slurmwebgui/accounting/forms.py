@@ -32,7 +32,7 @@ class Account(forms.Form):
 	description = forms.CharField(label="Account description", max_length=200)
 	organization = forms.CharField(label="Organization", max_length=30)
 	cluster = forms.CharField(label="Cluster name", max_length=30)
-	parent = forms.CharField(label="Parent", max_length=30)
+	parent = forms.CharField(label="Parent", max_length=30, widget=forms.Select)
 	
 
 class QOS(forms.Form):
