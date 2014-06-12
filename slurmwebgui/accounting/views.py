@@ -17,7 +17,8 @@
 
 """Accounting views:
 
-***Proper documentation here ***
+Generic forms for qos, cluster, partition, limit and account creation
+Some extra documentation here
 
 """
 
@@ -26,7 +27,6 @@ from django.template import RequestContext, loader
 from accounting.forms import *
 import paramiko
 
-#Generic forms for qos, cluster, partition, limit and account creation
 
 def index(request):
 	""" Admin dashboard
@@ -35,6 +35,7 @@ def index(request):
 	template = loader.get_template('base.html')
 	context = RequestContext(request, {})
 	return HttpResponse(template.render(context))
+
 
 def create_qos(request):
 	if request.method == 'POST':
