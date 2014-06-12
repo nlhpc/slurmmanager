@@ -1,13 +1,37 @@
-from django.shortcuts import render
+# SLURM Web GUI
+# Copyright 2014 Samuel Pizarro <samuel@nlhpc.cl>
+# Copyright 2014 Cristobal Leiva <cristobal.leiva@usach.cl>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+"""Accounting views:
+
+***Proper documentation here ***
+
+"""
+
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from accounting.forms import *
-import os
 import paramiko
 
 #Generic forms for qos, cluster, partition, limit and account creation
 
 def index(request):
+	""" Admin dashboard
+		
+	"""
 	template = loader.get_template('base.html')
 	context = RequestContext(request, {})
 	return HttpResponse(template.render(context))
@@ -36,10 +60,9 @@ def create_cluster(request):
 	else:
 		form = Cluster()
 		
-	template = loader.get_template ('forms/create.html')
-	form = Cluster()
+	template = loader.get_template ('forms.html')
 	id = "Cluster"
-	context = RequestContext(request, {'form': form, 'id' : id})
+	context = RequestContext(request, {'form': form, 'id' : id, 'small': 1})
 	return HttpResponse(template.render(context))
 
 	
@@ -55,7 +78,7 @@ def create_partition(request):
 	template = loader.get_template ('forms.html')
 	form = Partition()
 	id = "Partition"
-	context = RequestContext(request, {'form': form, 'id' : id, small: 1})
+	context = RequestContext(request, {'form': form, 'id' : id, 'small': 1})
 	return HttpResponse(template.render(context))
 
 	
@@ -97,7 +120,7 @@ def create_account(request):
 	template = loader.get_template ('forms.html')
 	form = Account()
 	id = "Account"
-	context = RequestContext(request, {'form': form, 'id' : id, small: 1})
+	context = RequestContext(request, {'form': form, 'id' : id, 'small': 1})
 	return HttpResponse(template.render(context))
 
 def commands(request):

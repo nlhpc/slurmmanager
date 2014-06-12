@@ -6,7 +6,7 @@ class Partition(forms.Form):
 	
 class Cluster(forms.Form):
 	name = forms.CharField(label="Cluster name", max_length=30)
-	description = forms.CharField(label="Cluster description", max_length=200)
+	description = forms.CharField(label="Cluster description", max_length=200, required=False)
 
 class Limits(forms.Form):
 	name = forms.CharField(label="Limit name", max_length=30)
