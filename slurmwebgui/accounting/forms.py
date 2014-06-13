@@ -28,12 +28,17 @@ class Limits(forms.Form):
 	qos = forms.CharField(label="QOS's able to run", max_length=200)
 	
 class Account(forms.Form):
-	name = forms.CharField(label="Account name", max_length=30)
-	description = forms.CharField(label="Account description", max_length=200)
-	organization = forms.CharField(label="Organization", max_length=30)
-	cluster = forms.CharField(label="Cluster name", max_length=30)
-	parent = forms.CharField(label="Parent", max_length=30, widget=forms.Select)
-	
+	name = forms.CharField(label="Account name", max_length=30, widget=forms.TextInput(attrs={'class':'form-control'}))
+	description = forms.CharField(label="Account description", max_length=200, widget=forms.TextInput(attrs={'class':'form-control'}))
+	organization = forms.CharField(label="Organization", max_length=30, widget=forms.TextInput(attrs={'class':'form-control'}))
+	cluster = forms.ChoiceField(label="Cluster name", choices=[(u'Select',u'Select')])
+	parent = forms.ChoiceField(label="Parent", choices=[(u'Select',u'Select')])
+	def __init__(self, accounts, clusters, *args, **kwargs):
+		super(Account, self).__init__(*args, **kwargs)
+		if accounts:
+			self.fields['parent'] = forms.ChoiceField(choices=accounts, widget=forms.Select(attrs={'class':'multiselect'}))
+		if clusters:
+			self.fields['cluster'] = forms.ChoiceField(choices=clusters, widget=forms.Select(attrs={'class':'multiselect'}))
 
 class QOS(forms.Form):
 	name = forms.CharField(label="QoS name", max_length=30)

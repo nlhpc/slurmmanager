@@ -130,14 +130,27 @@ def create_account(request):
 	# Each account line has the following fields:
 	# Account | Description | Organization
 	for line in accounts_lines:
-		# Get the account name
 		fields = re.split('\\|+', line)
-		accounts.append(fields[0])
+		if fields[0] != "":
+			# We make a list of tuples of the form (Account, Description)
+			accounts.append((fields[0], fields[1]))
+	
+	# First, we need to split the output into lines
+	clusters_lines = re.split('\\\n+', clusters_output);
+	clusters = []
+	# Each cluster line has the following fields:
+	#  Cluster | ControlHost | ControlPort | RPC | Share | GrpJobs | GrpNodes | GrpSubmit | MaxJobs | MaxNodes | MaxSubmit | MaxWall                  QOS   Def QOS 
+	for line in clusters_lines:
+		fields = re.split('\\|+', line)
+		if fields[0] != "":
+			# We make a list of tuples of the form (Cluster, Cluster)
+			clusters.append((fields[0], fields[0]))
 	
 	# Process form
 	if request.method == 'POST':
-		form = Account(request.POST)
+		form = Account(request.POST, request.POST.items())
 		if form.is_valid():
+			print form
 			name = form.cleaned_data['name']
 			description = form.cleaned_data['description']
 			organization = form.cleaned_data['organization']
@@ -145,18 +158,17 @@ def create_account(request):
 			parent = form.cleaned_data['parent']
 			command = "sacctmgr add ccount " + name + " Cluster=" + cluster
 			command += " Description=" + description + " Organization=" + organization
-			if not parent:
-				return HttpResponse(command)
-			else:
+			if parent:
 				command += " Parent=" + parent
-				return HttpResponse(command)
+			return HttpResponse(command)
 			
 	else:
-		form = Account(initial={'parent': accounts})
+		form = Account(accounts, clusters)
+		
 		
 	template = loader.get_template ('forms.html')
 	
-	context = RequestContext(request, {'form': form, 'id' : id, 'small': 1, 'info': info, 'accounts': accounts})
+	context = RequestContext(request, {'form': form, 'id' : id, 'small': 1, 'info': info, 'accounts': accounts, 'clusters': clusters})
 	return HttpResponse(template.render(context))
 
 def commands(request):
