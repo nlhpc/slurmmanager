@@ -1,4 +1,60 @@
 from django import forms
+import paramiko
+import re
+
+def get_accounts():
+	try:
+		ssh = paramiko.SSHClient()
+		ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+		ssh.load_system_host_keys()
+		ssh.connect('localhost', port=3022, username='clv', password='123456')
+	except paramiko.AuthenticationException:
+		return HttpResponse("wrong password")
+	
+	# -n (--noheader) is for not showing headers in the ouput
+	# -p (--parsable) is for getting the output parsed with '|' 
+	stdin, stdout, stderr = ssh.exec_command('sacctmgr -n -p show accounts')
+	accounts_output = stdout.read()
+	ssh.close()
+	
+	# We need to split the output into lines
+	accounts_lines = re.split('\\\n+', accounts_output);
+	accounts = []
+	# Each account line has the following fields:
+	# Account | Description | Organization
+	for line in accounts_lines:
+		fields = re.split('\\|+', line)
+		if fields[0] != "":
+			# We make a list of tuples of the form (Account, Description)
+			accounts.append((fields[0], fields[1]))
+	return accounts
+
+def get_clusters():
+	try:
+		ssh = paramiko.SSHClient()
+		ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+		ssh.load_system_host_keys()
+		ssh.connect('localhost', port=3022, username='clv', password='123456')
+	except paramiko.AuthenticationException:
+		return HttpResponse("wrong password")
+	
+	# -n (--noheader) is for not showing headers in the ouput
+	# -p (--parsable) is for getting the output parsed with '|' 
+	stdin, stdout, stderr = ssh.exec_command('sacctmgr -n -p show clusters')
+	clusters_output = stdout.read()
+	ssh.close()
+	
+	# We need to split the output into lines
+	clusters_lines = re.split('\\\n+', clusters_output);
+	clusters = []
+	# Each cluster line has the following fields:
+	#  Cluster | ControlHost | ControlPort | RPC | Share | GrpJobs | GrpNodes | GrpSubmit | MaxJobs | MaxNodes | MaxSubmit | MaxWall                  QOS   Def QOS 
+	for line in clusters_lines:
+		fields = re.split('\\|+', line)
+		if fields[0] != "":
+			# We make a list of tuples of the form (Cluster, Cluster)
+			clusters.append((fields[0], fields[0]))
+	return clusters
 
 class Partition(forms.Form):
 	name = forms.CharField(label="Partition name", max_length=30)
@@ -31,14 +87,14 @@ class Account(forms.Form):
 	name = forms.CharField(label="Account name", max_length=30, widget=forms.TextInput(attrs={'class':'form-control'}))
 	description = forms.CharField(label="Account description", max_length=200, widget=forms.TextInput(attrs={'class':'form-control'}))
 	organization = forms.CharField(label="Organization", max_length=30, widget=forms.TextInput(attrs={'class':'form-control'}))
-	cluster = forms.ChoiceField(label="Cluster name", choices=[(u'Select',u'Select')])
-	parent = forms.ChoiceField(label="Parent", choices=[(u'Select',u'Select')])
-	def __init__(self, accounts, clusters, *args, **kwargs):
-		super(Account, self).__init__(*args, **kwargs)
-		if accounts:
-			self.fields['parent'] = forms.ChoiceField(choices=accounts, widget=forms.Select(attrs={'class':'multiselect'}))
-		if clusters:
-			self.fields['cluster'] = forms.ChoiceField(choices=clusters, widget=forms.Select(attrs={'class':'multiselect'}))
+	cluster = forms.ChoiceField(label="Cluster name", choices=get_clusters(), widget=forms.Select(attrs={'class':'multiselect'}))
+	parent = forms.ChoiceField(label="Parent", choices=get_accounts(), widget=forms.Select(attrs={'class':'multiselect'}))
+	#def __init__(self, accounts, clusters, *args, **kwargs):
+	#	super(Account, self).__init__(*args, **kwargs)
+	#	if accounts:
+	#		self.fields['parent'] = forms.ChoiceField(choices=accounts)
+	#	if clusters:
+	#		self.fields['cluster'] = forms.ChoiceField(choices=clusters, widget=forms.Select(attrs={'class':'multiselect'}))
 
 class QOS(forms.Form):
 	name = forms.CharField(label="QoS name", max_length=30)

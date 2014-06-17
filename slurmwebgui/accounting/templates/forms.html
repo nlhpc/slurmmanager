@@ -11,7 +11,7 @@
 			<div class="panel-body">
 				<form action="/accounting/{{ id }}" method="post" class="form">
 					{% csrf_token %}
-					{% for field, otro in form %}
+					{% for field in form %}
 					<div class="form-group">
 						<label class="control-label" for="id_name">{{ field.label }}</label>
 						{{ field.errors }}
@@ -21,7 +21,7 @@
 							<span class="input-group-addon help" data-content="{{ field.help_text }}" rel="popover"><span class="glyphicon glyphicon-question-sign"></span></span>
 						</div>
 						{% else %}
-							{{ field.lol }}
+							{{ field }}
 						{% endif %}
 					</div>
 					{% endfor %}

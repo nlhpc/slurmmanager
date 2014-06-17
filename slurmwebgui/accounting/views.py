@@ -25,8 +25,6 @@ Some extra documentation here
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from accounting.forms import *
-import paramiko
-import re
 
 
 def index(request):
@@ -102,53 +100,9 @@ def create_limit(request):
 def create_account(request):
 	id = "Account"
 	
-	# Dev comment, not to be added
-	# Para que esta parte funcione es necesario correr la VM Master configurada con NAT y redireccion de puertos 3022 -> 22
-	# De esta manera podemos hacer ssh -p 3022 clv@localhost y ejecutar sacctmgr
-	try:
-		ssh = paramiko.SSHClient()
-		ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-		ssh.load_system_host_keys()
-		ssh.connect('localhost', port=3022, username='clv', password='123456')
-	except paramiko.AuthenticationException:
-		return HttpResponse("wrong password")
-	
-	# -n (--noheader) is for not showing headers in the ouput
-	# -p (--parsable) is for getting the output parsed with '|' 
-	stdin, stdout, stderr = ssh.exec_command('sacctmgr -n -p show clusters')
-	clusters_output = stdout.read()
-	stdin, stdout, stderr = ssh.exec_command('sacctmgr -n -p show accounts')
-	accounts_output = stdout.read()
-	
-	ssh.close()
-	
-	info = "\n" + clusters_output + "\n\n" + accounts_output
-	
-	# First, we need to split the output into lines
-	accounts_lines = re.split('\\\n+', accounts_output);
-	accounts = []
-	# Each account line has the following fields:
-	# Account | Description | Organization
-	for line in accounts_lines:
-		fields = re.split('\\|+', line)
-		if fields[0] != "":
-			# We make a list of tuples of the form (Account, Description)
-			accounts.append((fields[0], fields[1]))
-	
-	# First, we need to split the output into lines
-	clusters_lines = re.split('\\\n+', clusters_output);
-	clusters = []
-	# Each cluster line has the following fields:
-	#  Cluster | ControlHost | ControlPort | RPC | Share | GrpJobs | GrpNodes | GrpSubmit | MaxJobs | MaxNodes | MaxSubmit | MaxWall                  QOS   Def QOS 
-	for line in clusters_lines:
-		fields = re.split('\\|+', line)
-		if fields[0] != "":
-			# We make a list of tuples of the form (Cluster, Cluster)
-			clusters.append((fields[0], fields[0]))
-	
 	# Process form
 	if request.method == 'POST':
-		form = Account(request.POST, request.POST.items())
+		form = Account(request.POST)
 		if form.is_valid():
 			print form
 			name = form.cleaned_data['name']
@@ -163,12 +117,11 @@ def create_account(request):
 			return HttpResponse(command)
 			
 	else:
-		form = Account(accounts, clusters)
-		
+		form = Account()
 		
 	template = loader.get_template ('forms.html')
 	
-	context = RequestContext(request, {'form': form, 'id' : id, 'small': 1, 'info': info, 'accounts': accounts, 'clusters': clusters})
+	context = RequestContext(request, {'form': form, 'id' : id, 'small': 1})
 	return HttpResponse(template.render(context))
 
 def commands(request):
