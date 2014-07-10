@@ -25,6 +25,7 @@ Some extra documentation here
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from accounting.forms import *
+from accounting.functions import *
 
 
 def index(request):
@@ -32,7 +33,7 @@ def index(request):
 		
 	"""
 	template = loader.get_template('base.html')
-	context = RequestContext(request, {})
+	context = RequestContext(request, {'num_accounts': get_num_accounts(), 'num_users': get_num_users()})
 	return HttpResponse(template.render(context))
 
 

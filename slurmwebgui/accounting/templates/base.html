@@ -57,11 +57,11 @@
 			<div class="panel-heading"><h4><i class="glyphicon glyphicon-user"></i> Usuarios</h4></div>
 			<div class="panel-body">
 				<ul class="list-group">
-					<li class="list-group-item">Total <span class="pull-right">168</span></li>
-					<li class="list-group-item">Activos <span class="pull-right">113</span></li>
-					<li class="list-group-item">Vencidos <span class="pull-right">45</span></li>
+					<li class="list-group-item">Total <span class="pull-right">{{ num_users }}</span></li>
+					<li class="list-group-item">Activos <span class="pull-right">{{ num_users }}</span></li>
+					<li class="list-group-item">Vencidos <span class="pull-right">0</span></li>
 				</ul>
-				<a href="Account" class="btn btn-success white">Agregar</a>
+				<a class="btn btn-success white">Agregar</a>
 				<a class="btn btn-primary white">Modificar</a>
 				<a class="btn btn-danger white">Eliminar</a>
 			</div>
@@ -83,14 +83,13 @@
   	<div class="col-md-4 col-sm-6">
       	 
       	 <div class="panel panel-default box">
-			<div class="panel-heading"><h4><i class="glyphicon glyphicon-th"></i> Particiones</h4></div>
+			<div class="panel-heading"><h4><i class="glyphicon glyphicon-user"></i><i class="glyphicon glyphicon-user"></i> Cuentas</h4></div>
 			<div class="panel-body">
 				<ul class="list-group">
-					<li class="list-group-item">Total <span class="pull-right">8</span></li>
-					<li class="list-group-item">Activos <span class="pull-right">5</span></li>
+					<li class="list-group-item">Total <span class="pull-right">{{ num_accounts }}</span></li>
 				</ul>
-				<br /><br />
-				<a href="Partition" class="btn btn-success white">Agregar</a>
+				<br /><br /><br /><br />
+				<a href="Account" class="btn btn-success white">Agregar</a>
 				<a class="btn btn-primary white">Modificar</a>
 				<a class="btn btn-danger white">Eliminar</a>
 			</div>
@@ -107,15 +106,15 @@
   	<div class="col-md-4 col-sm-6">
 		
 		<div class="panel panel-default box">
-			<div class="panel-heading"><h4><i class="glyphicon glyphicon-user"></i><i class="glyphicon glyphicon-user"></i> Grupos</h4></div>
+			<div class="panel-heading"><h4><i class="glyphicon glyphicon-wrench"></i> Configuraciones SLURM</h4></div>
 			<div class="panel-body">
-				<ul class="list-group">
-					<li class="list-group-item">Total <span class="pull-right">26</span></li>
-				</ul>
-				<br /><br /><br /><br />
-				<a class="btn btn-success white">Agregar</a>
-				<a class="btn btn-primary white">Modificar</a>
-				<a class="btn btn-danger white">Eliminar</a>
+				<a href="QoS" class="btn btn-primary">Agregar QoS</a>
+				<a href="Cluster" class="btn btn-primary">Agregar Cluster</a>
+			</div>
+			<div class="panel-heading"><h4><i class="glyphicon glyphicon-wrench"></i> Configuraciones SLURM</h4></div>
+			<div class="panel-body">
+				<a href="QoS" class="btn btn-primary">Agregar QoS</a>
+				<a href="Cluster" class="btn btn-primary">Agregar Cluster</a>
 			</div>
 		</div>
 		
