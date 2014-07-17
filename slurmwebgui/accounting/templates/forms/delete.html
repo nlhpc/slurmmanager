@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}NLHPC{% endblock %}
+	{% block content %}
+	<div class="col-sx-12 {% if small %} col-md-6 {% else %} col-md-12 {% endif %}">
+		<ol class="breadcrumb white-bg box-border">
+			<li><a href="/accounting/">Dashboard</a></li>
+			<li class="active">Eliminar {{ id }}</li>
+		</ol>
+		
+		<div class="panel panel-default">
+			<div class="panel-heading"><h4><i class="glyphicon glyphicon-user"></i> Eliminar {{ id }}</h4></div>
+			<div class="panel-body">
+				<div class="col-md-12 centered">
+					<h3>&iquest;Est&aacute;s seguro que deseas eliminar &quot;{{ name }}&quot;?</h3>
+					<br />
+					<a href="/accounting/account/view" class="btn btn-large btn-default">No, volver al listado de {{ id }}</a>
+					<a href="/accounting/account/delete_confirm/{{ name }}" class="btn btn-large btn-success">Si, deseo eliminarla</a>
+					<br /><br />
+				</div><!-- /col-md-12 -->
+			</div><!-- /panel-body -->
+		</div><!-- /panel -->
+		</form>
+	</div><!-- /col-sx-12 -->
+	{% endblock %}

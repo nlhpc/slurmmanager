@@ -57,72 +57,55 @@
 			<div class="panel-heading"><h4><i class="glyphicon glyphicon-user"></i> Usuarios</h4></div>
 			<div class="panel-body">
 				<ul class="list-group">
-					<li class="list-group-item">Total <span class="pull-right">{{ num_users }}</span></li>
+					<li class="list-group-item">Total <span class="pull-right">{{ num_users }} </span></li>
 					<li class="list-group-item">Activos <span class="pull-right">{{ num_users }}</span></li>
-					<li class="list-group-item">Vencidos <span class="pull-right">0</span></li>
 				</ul>
-				<a class="btn btn-success white">Agregar</a>
-				<a class="btn btn-primary white">Modificar</a>
-				<a class="btn btn-danger white">Eliminar</a>
+				<div class="row pad10-h">
+					<div class="col-xs-12 col-md-6 action-button">
+						<a class="btn btn-success white col-xs-12"><i class="glyphicon glyphicon-plus" style="color:#fff;"></i> Agregar </a>
+					</div>
+					<div class="col-xs-12 col-md-6 action-button">
+						<a class="btn btn-primary white col-xs-12"><i class="glyphicon glyphicon-search" style="color:#fff;"></i> Ver listado </a>
+					</div>
+				</div>
 			</div>
 		</div>
 	   
-        <div class="panel panel-default box">
-			<div class="panel-heading"><h4><i class="glyphicon glyphicon-eye-open"></i> Control de Tareas</h4></div>
-			<div class="panel-body">
-				<ul class="list-group">
-					<li class="list-group-item">Total <span class="pull-right">87</span></li>
-					<li class="list-group-item">Error <span class="pull-right">4</span></li>
-				</ul>
-				<br /><br />
-				<a class="btn btn-primary white">Acci&oacute;n</a>
-			</div>
-		</div>
-		
 	</div>
   	<div class="col-md-4 col-sm-6">
       	 
-      	 <div class="panel panel-default box">
+      	 <div class="panel panel-default">
 			<div class="panel-heading"><h4><i class="glyphicon glyphicon-user"></i><i class="glyphicon glyphicon-user"></i> Cuentas</h4></div>
 			<div class="panel-body">
 				<ul class="list-group">
 					<li class="list-group-item">Total <span class="pull-right">{{ num_accounts }}</span></li>
+					<li class="list-group-item">Activos <span class="pull-right">{{ num_accounts }}</span></li>
 				</ul>
-				<br /><br /><br /><br />
-				<a href="Account" class="btn btn-success white">Agregar</a>
-				<a class="btn btn-primary white">Modificar</a>
-				<a class="btn btn-danger white">Eliminar</a>
-			</div>
-		</div>
-
-		<div class="panel panel-default box">
-			<div class="panel-heading"><h4><i class="glyphicon glyphicon-stats"></i> Estad&iacute;sticas</h4></div>
-			<div class="panel-body">
-				<img src="img/graph.png" />
+				<div class="row pad10-h">
+					<div class="col-xs-12 col-md-6 action-button">
+						<a href="account/add" class="btn btn-success white col-xs-12"><i class="glyphicon glyphicon-plus" style="color:#fff;"></i> Agregar </a>
+					</div>
+					<div class="col-xs-12 col-md-6 action-button">
+						<a href="account/view" class="btn btn-primary white col-xs-12"><i class="glyphicon glyphicon-search" style="color:#fff;"></i> Ver listado </a>
+					</div>
+				</div>
 			</div>
 		</div>
       
   	</div>
   	<div class="col-md-4 col-sm-6">
 		
-		<div class="panel panel-default box">
+		<div class="panel panel-default">
 			<div class="panel-heading"><h4><i class="glyphicon glyphicon-wrench"></i> Configuraciones SLURM</h4></div>
 			<div class="panel-body">
-				<a href="QoS" class="btn btn-primary">Agregar QoS</a>
-				<a href="Cluster" class="btn btn-primary">Agregar Cluster</a>
-			</div>
-			<div class="panel-heading"><h4><i class="glyphicon glyphicon-wrench"></i> Configuraciones SLURM</h4></div>
-			<div class="panel-body">
-				<a href="QoS" class="btn btn-primary">Agregar QoS</a>
-				<a href="Cluster" class="btn btn-primary">Agregar Cluster</a>
-			</div>
-		</div>
-		
-		<div class="panel panel-default box">
-			<div class="panel-heading"><h4><i class="glyphicon glyphicon-wrench"></i> Configuraciones SLURM</h4></div>
-			<div class="panel-body">
-				<a href="QoS" class="btn btn-primary">Agregar QoS</a>
-				<a href="Cluster" class="btn btn-primary">Agregar Cluster</a>
+				<div class="row pad10-h">
+					<div class="col-xs-12 col-md-6 action-button">
+						<a class="btn btn-success white col-xs-12"><i class="glyphicon glyphicon-plus" style="color:#fff;"></i> Agregar QoS</a>
+					</div>
+					<div class="col-xs-12 col-md-6 action-button">
+						<a href="QoS" class="btn btn-danger white col-xs-12"><i class="glyphicon glyphicon-off" style="color:#fff;"></i> Mantenimiento</a>
+					</div>
+				</div>
 			</div>
 		</div>
 
