@@ -21,7 +21,7 @@
 					<div class="row">
 						{% csrf_token %}
 						{% for field in form %}
-						<div class="form-group col-sx-12 {% if small %} cold-md-12 {% else %}  col-md-4 {% endif %}">
+						<div class="form-group mb30 col-sx-12 {% if small %} cold-md-12 {% else %}  col-md-4 {% endif %}">
 							<label class="control-label bold" for="id_name">{{ field.label }}</label><br />
 							{{ field.errors }}
 							<!-- {% if field.help_text %}
@@ -31,6 +31,7 @@
 							</div>
 							{% else %}
 								{{ field }}
+								{{ forloop.counter0 }}
 							{% endif %} -->
 							<p class="help_text">{{ field.help_text }}</p>
 							{{ field }}<br />

@@ -82,22 +82,20 @@ def delete_acount(name, cluster):
 def get_accounts(name=''):
 	""" Get list of all accounts in the cluster (list associations and filter where user is empty).
 		If name is provided, we get the data for that account in particular, with a 'where' clause.
-		sacctmgr -n -p -s list account format=Account,Descr,Org,Cluster,ParentName User= where account=name
+		sacctmgr -n -p -s list account format=Account,Descr,Org,Cluster,ParentName,QoS User= where account=name
 	"""
 	if name != '':
 		where_clause = 'where account="' + name + '"'
 	else:
 		where_clause = ''
-	output = exec_command('sacctmgr -n -p -s list account format=Account,Descr,Org,Cluster,ParentName User= ' + where_clause)
-	# We need to split the output into lines. Each account line has the following fields:
-	# Account | Description | Organization | Cluster
-	lines = re.split('\\\n+', output);
+	output = exec_command('sacctmgr -n -p -s list account format=Account,Descr,Org,Cluster,ParentName,QoS User= ' + where_clause)
+	lines = re.split('\\\n', output);
 	accounts = []
 	for line in lines:
-		fields = re.split('\\|+', line)
+		fields = re.split('\\|', line)
 		if fields[0] != '':
-			# We make a tuple of the form (Account, Description, Organization, Cluster, Parent)
-			accounts.append((fields[0], fields[1], fields[2], fields[3], fields[4]))
+			# We make a tuple of the form (Account, Description, Organization, Cluster, Parent, QoS)
+			accounts.append((fields[0], fields[1], fields[2], fields[3], fields[4], fields[5]))
 	return accounts
 
 	
@@ -106,12 +104,10 @@ def get_accounts_choices():
 		sacctmgr -n -p list account format=Account,Descr
 	"""
 	output = exec_command('sacctmgr -n -p list account format=Account,Descr')
-	# We need to split the output into lines. Each account line has the following fields:
-	# Account | Description
-	lines = re.split('\\\n+', output);
+	lines = re.split('\\\n', output);
 	accounts = []
 	for line in lines:
-		fields = re.split('\\|+', line)
+		fields = re.split('\\|', line)
 		if fields[0] != '':
 			# We make a tuple of the form (Account, Description)
 			accounts.append((fields[0], fields[1]))
@@ -123,13 +119,10 @@ def get_users():
 		sacctmgr -n -p show users
 	"""
 	output = exec_command('sacctmgr -n -p show users')
-	
-	# We need to split the output into lines. Each account line has the following fields:
-	# User | Default account | Admin
-	lines = re.split('\\\n+', output);
+	lines = re.split('\\\n', output);
 	users = []
 	for line in lines:
-		fields = re.split('\\|+', line)
+		fields = re.split('\\|', line)
 		if fields[0] != '':
 			# We make a tuple of the form (Account, Description)
 			users.append((fields[0], fields[1]))
@@ -141,14 +134,11 @@ def get_clusters():
 		sacctmgr -n -p show clusters
 	"""
 	output = exec_command('sacctmgr -n -p show clusters')
-	
-	# We need to split the output into lines. Each cluster line has the following fields:
-	#  Cluster | ControlHost | ControlPort | RPC | Share | GrpJobs | GrpNodes | GrpSubmit | MaxJobs | MaxNodes | MaxSubmit | MaxWall | QOS | Def QOS 
-	lines = re.split('\\\n+', output);
+	lines = re.split('\\\n', output);
 	clusters = []
 	
 	for line in lines:
-		fields = re.split('\\|+', line)
+		fields = re.split('\\|', line)
 		if fields[0] != '':
 			# We make a tuple of the form (Cluster, Cluster)
 			clusters.append((fields[0], fields[0]))
@@ -160,6 +150,22 @@ def get_clusters_choices():
 		In this case, is the same as get_clusters() because it only has one field
 	"""
 	return get_clusters()
+	
+
+def get_qos_choices():
+	""" Get list of all qos in the cluster to be used as a choice object
+		sacctmgr -n -p list qos format=Name,Descr
+	"""
+	output = exec_command('sacctmgr -n -p list qos format=Name,Descr')
+	lines = re.split('\\\n', output);
+	qos = []
+	for line in lines:
+		fields = re.split('\\|', line)
+		if fields[0] != '':
+			# We make a tuple of the form (Name, Description)
+			qos.append((fields[0], fields[1]))
+	return qos
+
 
 
 def get_num_accounts():

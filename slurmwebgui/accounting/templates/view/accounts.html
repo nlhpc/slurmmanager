@@ -30,17 +30,19 @@
 									<th>Organizacion</th>
 									<th>Cluster</th>
 									<th>Cuenta padre</th>
+									<th>QoS</th>
 									<th>Acciones</th>
 								</tr>
 							</thead>
 							<tbody>
-								{% for name, desc, org, cluster, parent in accounts %}
+								{% for name, desc, org, cluster, parent, qos in accounts %}
 								<tr>
 									<td>{{ name }}</td>
 									<td>{{ desc }}</td>
 									<td>{{ org }}</td>
 									<td>{{ cluster }}</td>
 									<td>{{ parent }}</td>
+									<td>{{ qos }}</td>
 									<td>
 										<a href="edit/{{ name }}" class="btn btn-primary white"><i class="glyphicon glyphicon-pencil" style="color:#fff;"></i></a>
 										<a href="delete/{{ name }}" class="btn btn-danger white"><i class="glyphicon glyphicon-remove" style="color:#fff;"></i></a>

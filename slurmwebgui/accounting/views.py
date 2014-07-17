@@ -46,11 +46,12 @@ def create_account(request):
 	if request.method == 'POST':
 		form = Account(request.POST)
 		if form.is_valid():
-			name = form.cleaned_data['name']
-			description = form.cleaned_data['description']
-			organization = form.cleaned_data['organization']
-			cluster = form.cleaned_data['cluster']
-			parent = form.cleaned_data['parent']
+			name 			= form.cleaned_data['name']
+			description 	= form.cleaned_data['description']
+			organization 	= form.cleaned_data['organization']
+			cluster 		= form.cleaned_data['cluster']
+			parent 			= form.cleaned_data['parent']
+			qos				= form.cleaned_data['qos']
 			# Everything is OK, let's add the account
 			add_acount(name, description, organization, cluster, parent)
 			messages.add_message(request, messages.SUCCESS, 'Cuenta agregada con exito!')
@@ -91,8 +92,8 @@ def edit_account(request, account_name):
 		# Populate the form object with the account information
 		account = get_accounts(name=account_name)
 		account_dict = {}
-		for name, desc, org, cluster, parent in account:
-			account_dict = {'name': name, 'description': desc, 'organization': org, 'cluster': cluster, 'parent': parent}
+		for name, desc, org, cluster, parent, qos in account:
+			account_dict = {'name': name, 'description': desc, 'organization': org, 'cluster': cluster, 'parent': parent, 'qos': qos}
 		form = Account(account_dict)
 	
 	template = loader.get_template('forms/edit.html')
@@ -124,16 +125,27 @@ def delete_confirm_account(request, account_name):
 
 
 def create_qos(request):
+	"""
+	Create a QOS
+	"""
+	"""
 	if request.method == 'POST':
-		form = QOS(request.POST)
+		form = QoS(request.POST)
 		if form.is_valid():
-			return HttpResponse('Wena')
-	else:
-		form = QOS()
-		
-	template = loader.get_template('forms.html')
-	id = "QoS"
-	context = RequestContext(request, {'form': form, 'id' : id})
+			name 			= form.cleaned_data['name']
+			description 	= form.cleaned_data['description']
+			organization 	= form.cleaned_data['organization']
+			cluster 		= form.cleaned_data['cluster']
+			parent 			= form.cleaned_data['parent']
+			qos				= form.cleaned_data['qos']
+			# Everything is OK, let's add the account
+			add_acount(name, description, organization, cluster, parent)
+			messages.add_message(request, messages.SUCCESS, 'Cuenta agregada con exito!')
+			form = Account()
+	else:"""
+	form = QOS()
+	template = loader.get_template('forms/add.html')
+	context = RequestContext(request, {'form': form, 'id' : 'QOS', 'small': 0})
 	return HttpResponse(template.render(context))
 
 	
