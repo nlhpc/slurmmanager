@@ -1,5 +1,5 @@
 from django import forms
-from functions import get_accounts_choices, get_clusters_choices, get_qos_choices
+from functions import *
 	
 class Cluster(forms.Form):
 	name = forms.CharField(label="Nombre del cluster", max_length=30)
@@ -68,14 +68,14 @@ class QOS(forms.Form):
 					help_text="No debe superar los 200 caracteres",
 					max_length=200,
 					widget=forms.TextInput(attrs={'class':'form-control'}))
-	flags = forms.ChoiceField(
+	flags = forms.MultipleChoiceField(
 					label="Flags",
 					help_text="Lista de flags para este QOS",
-					choices=get_qos_choices(),
-					widget=forms.Select(attrs={'class':'multiselect'}))
+					choices=get_qos_flags_choices(),
+					widget=forms.SelectMultiple(attrs={'class':'multiselect-small'}))
 	grpcpurunmins = forms.IntegerField(
 					label="GrpCPURunMins",
-					help_text="Maximo de minutos de CPU que los trabajos corriendo al mismo tiempo pueden utilizar",
+					help_text="Maximo de minutos de CPU que trabajos corriendo al mismo tiempo pueden utilizar",
 					widget=forms.TextInput(attrs={'class':'form-control'}))
 	grpcpus = forms.IntegerField(
 					label="GrpCPUs",
@@ -105,25 +105,25 @@ class QOS(forms.Form):
 					label="GrpWall",
 					help_text="Wall clock limit para todos los trabajos ejecutandose en este QOS",
 					widget=forms.TextInput(attrs={'class':'form-control'}))
-	preempt = forms.ChoiceField(
+	preempt = forms.MultipleChoiceField(
 					label="Preempt",
-					help_text="Lista de QOS sobre las cuales este QOS tendra preferencia (puede ser mas de una)",
+					help_text="Lista de QOS sobre las cuales este QOS tendra preferencia",
 					choices=get_qos_choices(),
-					widget=forms.Select(attrs={'class':'multiselect'}))
+					widget=forms.SelectMultiple(attrs={'class':'multiselect-selectall'}))
 	preemptmode = forms.ChoiceField(
 					label="PreemptMode",
-					help_text="Mecanismo usado para adelantarse a otros trabajos de este QOS (PreemptType debe estar configurado a preempt/qos)",
-					choices=get_qos_choices(),
-					widget=forms.Select(attrs={'class':'multiselect'}))
+					help_text="Mecanismo usado para adelantarse a otros trabajos (el cluster debe estar configurado con PreemptType=preempt/qos)",
+					choices=get_qos_preemptmode_choices(),
+					widget=forms.Select(attrs={'class':'multiselect-small'}))
 	gracetime = forms.IntegerField(
 					label="GraceTime",
-					help_text="Tiempo de gracia para ser extendido a trabajos preferentes (en segundos)",
+					help_text="Tiempo de gracia (en segundos) para trabajos cancelados por preferencia (solo si PreemptMode=Cancelar)",
 					widget=forms.TextInput(attrs={'class':'form-control'}))
 	priority = forms.IntegerField(
 					label="Priority",
 					help_text="Prioridad que se agregara a trabajos en este QOS",
 					widget=forms.TextInput(attrs={'class':'form-control'}))
-	usagefactor = forms.IntegerField(
+	usagefactor = forms.FloatField(
 					label="UsageFactor",
 					help_text="Factor para aumentar/disminuir la cuenta de tiempo de este QOS. Por defecto es 1.0 (flotante)",
 					widget=forms.TextInput(attrs={'class':'form-control'}))
@@ -131,33 +131,37 @@ class QOS(forms.Form):
 					label="UsageThreshold",
 					help_text="Limite que representa el minimo fairshare que necesita un trabajo para ejecutarse en este QOS (flotante)",
 					widget=forms.TextInput(attrs={'class':'form-control'}))
-	maxcpusperjob = forms.IntegerField(
-					label="Maximum CPU's per job",
-					help_text="some desc",
+	maxcpumins = forms.IntegerField(
+					label="MaxCPUMins",
+					help_text="Maximo numero de minutos de CPUs que puede utilizar cada trabajo",
 					widget=forms.TextInput(attrs={'class':'form-control'}))
-	maxnodesperjob = forms.IntegerField(
-					label="Maximum total nodes per job",
-					help_text="some desc",
-					widget=forms.TextInput(attrs={'class':'form-control'}))
-	maxwalldurationperjob = forms.IntegerField(
-					label="Maximum time for running job",
-					help_text="some desc",
+	maxcpus = forms.IntegerField(
+					label="MaxCPUs",
+					help_text="Maximo numero de CPUs que puede utilizar cada trabajo",
 					widget=forms.TextInput(attrs={'class':'form-control'}))
 	maxcpusperuser = forms.IntegerField(
-					label="Maximum number of running jobs for user",
-					help_text="some desc",
+					label="MaxCpusPerUser",
+					help_text="Maximo numero de CPUs que puede utilizar cada usuario",
 					widget=forms.TextInput(attrs={'class':'form-control'}))
-	maxjobsperuser = forms.IntegerField(
-					label="Maximum number of jobs per user",
-					help_text="some desc",
+	maxjobs = forms.IntegerField(
+					label="MaxJobs",
+					help_text="Maximo de trabajos que cada usuario puede ejecutar simultaneamente",
+					widget=forms.TextInput(attrs={'class':'form-control'}))
+	maxnodes = forms.IntegerField(
+					label="MaxNodes",
+					help_text="Maximo de nodos que cada trabajo puede utilizar",
 					widget=forms.TextInput(attrs={'class':'form-control'}))
 	maxnodesperuser = forms.IntegerField(
-					label="Maximum number of nodes per user",
-					help_text="some desc",
+					label="MaxNodesPerUser",
+					help_text="Maximo de nodos que cada usuario puede utilizar",
 					widget=forms.TextInput(attrs={'class':'form-control'}))
-	maxsubmitjobsperuser = forms.IntegerField(
-					label="Maximum jobs submited per user",
-					help_text="some desc",
+	maxsubmitjobs = forms.IntegerField(
+					label="MaxSubmitJobs",
+					help_text="Maximo de trabajos por cada usuario (ejecutandose o pendientes)",
+					widget=forms.TextInput(attrs={'class':'form-control'}))
+	maxwall = forms.IntegerField(
+					label="MaxWall",
+					help_text="Maximo wall clock que cada trabajo puede utilizar",
 					widget=forms.TextInput(attrs={'class':'form-control'}))
 	
 #class Partition(forms.Form):

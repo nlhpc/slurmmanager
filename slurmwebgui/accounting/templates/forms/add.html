@@ -31,11 +31,14 @@
 							</div>
 							{% else %}
 								{{ field }}
-								{{ forloop.counter0 }}
 							{% endif %} -->
 							<p class="help_text">{{ field.help_text }}</p>
 							{{ field }}<br />
 						</div>
+						{% if forloop.counter0|add:"1"|divisibleby:"3" %}
+						</div><!-- /row -->
+						<div class="row">
+						{% endif %}
 						{% endfor %}
 					</div>
 				</div><!-- /col-md-12 -->

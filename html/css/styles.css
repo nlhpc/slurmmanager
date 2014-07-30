@@ -119,3 +119,5 @@ h3,h4,h5 {
 .without-border { border: 0px; }
 
 .mr10 { margin-right: 10px; }
+
+.action-button { border: 1px solid red; margin-bottom: 5px; }

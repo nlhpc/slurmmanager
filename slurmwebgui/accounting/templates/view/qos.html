@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %}NLHPC{% endblock %}
+	{% block content %}
+	<div class="col-sx-12 {% if small %} col-md-6 {% else %} col-md-12 {% endif %}">
+		<ol class="breadcrumb white-bg box-border">
+			<li><a href="/accounting/">Dashboard</a></li>
+			<li class="active">Listado de {{ id }}</li>
+		</ol>
+		
+		{% if messages %}
+			{% for message in messages %}
+				<div class="alert alert-{{ message.tags }}">{{ message }}</div>
+			{% endfor %}
+		{% endif %}
+		
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4><i class="glyphicon glyphicon-user"></i> Listado de {{ id }}
+				<a href="add" class="btn btn-large btn-success pull-right"><i class="glyphicon glyphicon-plus" style="color:#fff;"></i> Agregar</a></h4>
+			</div>
+			<div class="panel-body">
+				<form action="" method="POST" class="form">
+				<div class="col-md-12 form-fields">
+					<div class="row table-responsive">
+						<table class="table table-bordered table-hover table-striped">
+							<thead>
+								<tr>
+									<th>Nombre</th>
+									<th>Descripcion</th>
+									<th>Flags</th>
+									<th>GrpCPURunMins</th>
+									<th>GrpCPUs</th>
+									<th>GrpCPUMins</th>
+									<th>GrpJobs</th>
+									<th>GrpNodes</th>
+									<th>GrpMemory</th>
+									<th>GrpSubmitJobs</th>
+									<th>GrpWall</th>
+									<th>Preempt</th>
+									<th>PreemptMode</th>
+									<th>GraceTime</th>
+									<th>Priority</th>
+									<th>UsageFactor</th>
+									<th>UsageThreshold</th>
+									<th>MaxCPUMins</th>
+									<th>MaxCPUs</th>
+									<th>MaxCPUsPerUser</th>
+									<th>MaxJobs</th>
+									<th>MaxNodes</th>
+									<th>MaxNodesPerUser</th>
+									<th>MaxSubmitJobs</th>
+									<th>MaxWall</th>
+									<th>Acciones</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for name, description, flags, gracetime, grpcpumins, grpcpus, grpjobs, grpmemory, grpnodes, grpsubmitjobs, grpwall, maxcpumins, maxcpus, maxcpusperuser, maxjobs, maxnodesperuser, maxcpusperuser, maxnodes, maxsubmitjobs, maxwall, preempt, preemptmode, priority, usagefactor, usagethreshold in qos %}
+								<tr>
+									<td>{{ name }}</td>
+									<td>{{ description }}</td>
+									<td>{{ flags }}</td>
+									<td>{{ gracetime }}</td>
+									<td>{{ grpcpumins }}</td>
+									<td>{{ grpcpus }}</td>
+									<td>{{ grpjobs }}</td>
+									<td>{{ grpmemory }}</td>
+									<td>{{ grpnodes }}</td>
+									<td>{{ grpsubmitjobs }}</td>
+									<td>{{ grpwall }}</td>
+									<td>{{ maxcpumins }}</td>
+									<td>{{ maxcpus }}</td>
+									<td>{{ maxcpusperuser }}</td>
+									<td>{{ maxjobs }}</td>
+									<td>{{ maxnodesperuser }}</td>
+									<td>{{ maxcpusperuser }}</td>
+									<td>{{ maxnodes }}</td>
+									<td>{{ maxsubmitjobs }}</td>
+									<td>{{ maxwall }}</td>
+									<td>{{ preempt }}</td>
+									<td>{{ preemptmode }}</td>
+									<td>{{ priority }}</td>
+									<td>{{ usagefactor }}</td>
+									<td>{{ usagethreshold }}</td>
+									<td>
+										<a href="edit/{{ name }}" class="btn btn-primary white"><i class="glyphicon glyphicon-pencil" style="color:#fff;"></i></a>
+										<a href="delete/{{ name }}" class="btn btn-danger white"><i class="glyphicon glyphicon-remove" style="color:#fff;"></i></a>
+									</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div><!-- /col-md-12 -->
+			</div><!-- /panel-body -->
+		</div><!-- /panel -->
+		</form>
+	</div><!-- /col-sx-12 -->
+	{% endblock %}

@@ -13,10 +13,24 @@ $(document).ready(function() {
 	});
 
 	$('.help').popover({ trigger: 'hover', placement: 'top' });
-
+	
 	$('.multiselect').multiselect({
 		enableFiltering: true,
-		enableCaseInsensitiveFiltering: true
+		enableCaseInsensitiveFiltering: true,
+		numberDisplayed: 1,
+		maxHeight: 200
+	});
+	
+	$('.multiselect-small').multiselect({
+		numberDisplayed: 1
+	});
+	
+	$('.multiselect-selectall').multiselect({
+		enableFiltering: true,
+		enableCaseInsensitiveFiltering: true,
+		numberDisplayed: 1,
+		maxHeight: 200,
+		includeSelectAllOption: true
 	});
 
 });
